@@ -1,3 +1,4 @@
+;; connect to melpa for packge management
 (require 'package) ;; You might already have this line
 (add-to-list 'package-archives
 	     '("melpa" . "https://melpa.org/packages/"))
@@ -10,16 +11,15 @@
   (require 'package)
   (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
     (package-initialize))
-
+;; load the monokai theme (require the installation of monokai theme of oneKelvinSmith)
 (load-theme 'monokai t)
 (require 'generic-x)
-
+;; set up ispell (unfortunately doesn't work for mac)
 (setq ispell-program-name "~/.emacs.d/elpa/ac-ispell-20151031.1926/ac-ispell.el")
 ;; Completion words longer than 4 characters
 (custom-set-variables
   '(ac-ispell-requires 4)
   '(ac-ispell-fuzzy-limit 4))
-
 (eval-after-load "auto-complete"
   '(progn
       (ac-ispell-setup)))
@@ -27,6 +27,6 @@
 (add-hook 'git-commit-mode-hook 'ac-ispell-ac-setup)
 (add-hook 'mail-mode-hook 'ac-ispell-ac-setup)
 
-
+;; add python auto-completion to emacs (require installation of jedi)
 (add-hook 'python-mode-hook 'jedi:setup)
 (setq jedi:complete-on-dot t)
