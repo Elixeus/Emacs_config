@@ -1,0 +1,32 @@
+(require 'package) ;; You might already have this line
+(add-to-list 'package-archives
+	     '("melpa" . "https://melpa.org/packages/"))
+(when (< emacs-major-version 24)
+  ;; For important compatibility libraries like cl-lib
+  (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
+(package-initialize) ;; You might already have this line
+
+(when (>= emacs-major-version 24)
+  (require 'package)
+  (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
+    (package-initialize))
+
+(load-theme 'monokai t)
+(require 'generic-x)
+
+(setq ispell-program-name "~/.emacs.d/elpa/ac-ispell-20151031.1926/ac-ispell.el")
+;; Completion words longer than 4 characters
+(custom-set-variables
+  '(ac-ispell-requires 4)
+  '(ac-ispell-fuzzy-limit 4))
+
+(eval-after-load "auto-complete"
+  '(progn
+      (ac-ispell-setup)))
+
+(add-hook 'git-commit-mode-hook 'ac-ispell-ac-setup)
+(add-hook 'mail-mode-hook 'ac-ispell-ac-setup)
+
+
+(add-hook 'python-mode-hook 'jedi:setup)
+(setq jedi:complete-on-dot t)
